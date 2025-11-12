@@ -3,53 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Jogos Educativos</title>
-    
-    <link rel="stylesheet" href="/css/login.css">
-    
-    <link rel="stylesheet" href="/css/cadastro.css"> 
+    <title>EducaTech - Login</title>
+    <link rel="icon" href="/img/logo-educatech.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-    <h1>Plataforma de Jogos Educativos</h1>
-
     <div id="area-login" class="container">
-        <h2>Login</h2>
+        <div class="login-header">
+            <img src="/img/logo-educatech.png" alt="Logo EducaTech" class="logo-login">
+            <h2>Faça seu Login</h2>
+        </div>
         
         <form id="form-login" method="POST" action="/login">
             <div class="form-group">
                 <label for="usuario">Usuário:</label>
-                <input type="text" id="usuario" name="usuario" required>
+                <input type="text" id="usuario" name="usuario" required autocomplete="off">
             </div>
             <div class="form-group">
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required>
+                <input type="password" id="senha" name="senha" required autocomplete="new-password">
+                <a href="#" class="forgot-password">Esqueceu a senha?</a>
             </div>
             <button type="submit" class="btn">Entrar</button>
-            <p id="mensagem-erro" class="error-message" style="display: none;">Usuário ou senha inválidos.</p>
         </form>
 
-        <div class="link-secundario">
-            <p>Não tem uma conta? <a href="/cadastro">Cadastre-se</a></p>
-        </div>
-
     </div>
 
-    <div id="info-usuario" class="container user-info" style="display: none;">
-        <p>Bem-vindo(a), <span id="nome-usuario-logado"></span>!</p>
-        <button id="botao-sair" class="btn btn-secondary">Sair</button>
-    </div>
-
-    <div id="conteudo-aluno" class="container content-area" style="display: none;">
-        <h2>Área do Aluno</h2>
-        <p>Aqui você encontrará seus jogos e informações do perfil.</p>
-    </div>
-
-    <div id="conteudo-professor" class="container content-area" style="display: none;">
-        <h2>Painel Administrativo (Professor)</h2>
-        <p>Gerencie os alunos cadastrados.</p>
-    </div>
-
-    <script src="/js/login.js"></script>
 </body>
 </html>
