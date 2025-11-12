@@ -1,5 +1,3 @@
-// src/controllers/authController.js
-
 const db = require('../config/database'); // Importa a conexão do banco
 const bcrypt = require('bcrypt'); // Importa o bcrypt
 const saltRounds = 10; // Define o "custo" do hash
@@ -128,7 +126,84 @@ const getAlunosPage = async (req, res) => {
     }
 };
 
-// Agora, atualize o module.exports para incluir a nova função:
+// 8. MOSTRAR a página para editar um aluno
+const getEditarAlunoPage = async (req, res) => {
+    try {
+        const { id } = req.params; // Pega o ID da URL
+        
+        // Busca o aluno específico no banco
+        const query = 'SELECT id_aluno, nome, usuario, turma, idade FROM alunos WHERE id_aluno = ?';
+        const [alunos] = await db.query(query, [id]);
+
+        if (alunos.length === 0) {
+            return res.status(404).send('Aluno não encontrado.');
+        }
+        
+        // Renderiza a nova view de edição e passa os dados do aluno
+        res.render('adminEditarAluno', { aluno: alunos[0] });
+
+    } catch (error) {
+        console.error('Erro ao buscar aluno para edição:', error);
+        res.status(500).send('Erro interno do servidor.');
+    }
+};
+
+// 9. PROCESSAR a atualização do aluno
+const postEditarAluno = async (req, res) => {
+    try {
+        const { id } = req.params; // Pega o ID da URL
+        // Pega os dados do formulário
+        const { nome, usuario, turma, idade, senha } = req.body;
+
+        // Lógica de senha: Só atualiza se uma NOVA senha for digitada
+        if (senha && senha.trim() !== '') {
+            // Se uma nova senha foi fornecida, hasheia e atualiza
+            const hashedPassword = await bcrypt.hash(senha, saltRounds);
+            const query = `
+                UPDATE alunos 
+                SET nome = ?, usuario = ?, turma = ?, idade = ?, senha = ? 
+                WHERE id_aluno = ?`;
+            await db.query(query, [nome, usuario, turma, idade, hashedPassword, id]);
+        
+        } else {
+            // Se o campo senha veio vazio, NÃO atualiza a senha
+            const query = `
+                UPDATE alunos 
+                SET nome = ?, usuario = ?, turma = ?, idade = ? 
+                WHERE id_aluno = ?`;
+            await db.query(query, [nome, usuario, turma, idade, id]);
+        }
+        
+        // Redireciona de volta para a lista de alunos
+        res.redirect('/admin/alunos');
+
+    } catch (error) {
+        console.error('Erro ao atualizar aluno:', error);
+        res.status(500).send('Erro interno do servidor.');
+    }
+};
+
+// 10. PROCESSAR a exclusão do aluno
+const postExcluirAluno = async (req, res) => {
+    try {
+        const { id } = req.params; // Pega o ID da URL
+        
+        // Deleta o aluno
+        // NOTA: Graças ao "ON DELETE CASCADE" no seu SQL,
+        // todas as pontuações deste aluno serão deletadas automaticamente.
+        const query = 'DELETE FROM alunos WHERE id_aluno = ?';
+        await db.query(query, [id]);
+
+        // Redireciona de volta para a lista de alunos
+        res.redirect('/admin/alunos');
+
+    } catch (error)
+    {
+        console.error('Erro ao excluir aluno:', error);
+        res.status(500).send('Erro interno do servidor.');
+    }
+};
+
 module.exports = {
     getLoginPage,
     postLogin,
@@ -136,5 +211,8 @@ module.exports = {
     postRegister,
     getAdminPage,
     getLogout,
-    getAlunosPage // 👈 ADICIONADO AQUI
+    getAlunosPage,
+    getEditarAlunoPage, 
+    postEditarAluno,   
+    postExcluirAluno   
 };

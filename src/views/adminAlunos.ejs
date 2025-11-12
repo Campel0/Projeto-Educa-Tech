@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerir Alunos - Admin</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" href="/img/logo-educatech.svg" type="image/svg+xml">
     <style>
-        /* Estilos para a tabela */
-        .container-large { max-width: 900px; }
-        .alunos-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .alunos-table th, .alunos-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
+        /* ... (seu style da tabela continua igual) ... */
+        
+        /* Estilo para o botão 'Excluir' parecer um link */
+        .actions-links button.link-button {
+            background: none;
+            border: none;
+            color: #e53935; /* Vermelho para perigo */
+            cursor: pointer;
+            padding: 0;
+            font-size: 1em;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-left: 10px;
         }
-        .alunos-table th { background-color: #f4f4f4; }
-        .alunos-table tr:nth-child(even) { background-color: #f9f9f9; }
-        .actions-links a {
-            margin-right: 10px;
-            color: #00796b;
-            text-decoration: none;
+        .actions-links button.link-button:hover {
+            text-decoration: underline;
         }
-        .actions-links a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -45,17 +40,19 @@
                         <td><%= aluno.usuario %></td>
                         <td><%= aluno.turma %></td>
                         <td class="actions-links">
-                            <a href="#">Editar</a>
-                            <a href="#">Excluir</a>
+                            
+                            <a href="/admin/aluno/<%= aluno.id_aluno %>/editar">Editar</a>
+
+                            <form method="POST" action="/admin/aluno/<%= aluno.id_aluno %>/excluir" style="display: inline;" 
+                                  onsubmit="return confirm('Tem certeza que deseja excluir <%= aluno.nome %>? Esta ação não pode ser desfeita.');">
+                                <button type="submit" class="link-button">Excluir</button>
+                            </form>
+
                         </td>
                     </tr>
                 <% }) %>
-
                 <% if (alunos.length === 0) { %>
-                    <tr>
-                        <td colspan="4" style="text-align: center;">Nenhum aluno cadastrado.</td>
-                    </tr>
-                <% } %>
+                    <% } %>
             </tbody>
         </table>
 

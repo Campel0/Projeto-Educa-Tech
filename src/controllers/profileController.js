@@ -1,8 +1,6 @@
-// src/controllers/profileController.js
-
 const db = require('../config/database');
 
-// 1. MOSTRAR a página de perfil (ATUALIZADA)
+// 1. MOSTRAR a página de perfil
 const getProfilePage = async (req, res) => {
     const userId = req.session.alunoId; 
 
@@ -28,7 +26,7 @@ const getProfilePage = async (req, res) => {
         const dadosDoUsuario = rows[0];
         const level = Math.floor(dadosDoUsuario.total_pontos / 500) + 1;
 
-        // --- LÓGICA DO AVATAR ATUALIZADA ---
+        // --- LÓGICA DO AVATAR ---
         // Pega a "semente" do avatar (ex: 'a1b2c3d') ou usa o username se não houver
         const avatarSeed = dadosDoUsuario.avatar || dadosDoUsuario.username;
         // Monta a URL completa do avatar
@@ -53,10 +51,6 @@ const getProfilePage = async (req, res) => {
         res.status(500).send('Erro interno do servidor ao carregar o perfil.');
     }
 };
-
-
-// -----------------------------------------------------------------
-// 👇 FUNÇÕES NOVAS ADICIONADAS AQUI 👇
 
 /**
  * 2. PROCESSAR a atualização da descrição (NOVA)
@@ -103,10 +97,6 @@ const updateAvatar = async (req, res) => {
         res.status(500).send('Erro ao salvar alterações.');
     }
 };
-
-// 👆 FIM DAS FUNÇÕES NOVAS 👆
-// -----------------------------------------------------------------
-
 
 // Exporta tudo
 module.exports = {

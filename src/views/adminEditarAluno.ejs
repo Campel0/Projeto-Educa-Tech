@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Aluno - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/img/logo-educatech.svg" type="image/svg+xml">
+</head>
+<body>
+    <h1>Editar Aluno</h1>
+
+    <div id="area-edicao" class="container">
+        
+        <h2>Editando: <%= aluno.nome %></h2>
+        
+        <form id="form-edicao" method="POST" action="/admin/aluno/<%= aluno.id_aluno %>/editar">
+            
+            <div class="form-group">
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" value="<%= aluno.nome %>" required>
+            </div>
+
+            <div class="form-group-inline">
+                <div class="form-group">
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" name="idade" value="<%= aluno.idade %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="turma">Turma:</label>
+                    <input type="text" id="turma" name="turma" value="<%= aluno.turma %>" placeholder="Ex: 2A" required>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-group">
+                <label for="usuario">Nome de Usuário:</label>
+                <input type="text" id="usuario" name="usuario" value="<%= aluno.usuario %>" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Nova Senha:</label>
+                <input type="password" id="senha" name="senha" placeholder="Deixe em branco para não alterar">
+            </div>
+
+            <button type="submit" class="btn">Salvar Alterações</button>
+        </form>
+        
+        <div class="link-secundario">
+            <p><a href="/admin/alunos">Cancelar e Voltar</a></p>
+        </div>
+    </div>
+</body>
+</html>

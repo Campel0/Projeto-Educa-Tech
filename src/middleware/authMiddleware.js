@@ -1,5 +1,3 @@
-// src/middleware/authMiddleware.js
-
 // Middleware para checar se o usuário é um ALUNO logado
 const checarSeLogado = (req, res, next) => {
     // Checa se está logado E se é um aluno

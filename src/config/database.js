@@ -1,4 +1,3 @@
-// config/database.js
 const mysql = require('mysql2');
 
 // Cria o "pool" de conexões com o banco
