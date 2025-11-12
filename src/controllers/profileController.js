@@ -53,7 +53,7 @@ const getProfilePage = async (req, res) => {
 };
 
 /**
- * 2. PROCESSAR a atualização da descrição (NOVA)
+ * 2. PROCESSAR a atualização da descrição
  */
 const updateProfile = async (req, res) => {
     // Pega o ID do aluno da sessão (seguro)
@@ -76,7 +76,7 @@ const updateProfile = async (req, res) => {
 };
 
 /**
- * 3. PROCESSAR a troca de avatar (NOVA)
+ * 3. PROCESSAR a troca de avatar
  */
 const updateAvatar = async (req, res) => {
     const userId = req.session.alunoId;

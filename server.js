@@ -5,7 +5,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session'); // Para o login
 
-// 2. IMPORTAÇÃO DAS ROTAS ("Menus" do restaurante)
+// 2. IMPORTAÇÃO DAS ROTAS
 // =============================================
 // Importa o "menu" de autenticação (login, cadastro, logout)
 const authRoutes = require('./src/routes/authRoutes');
